@@ -1,0 +1,38 @@
+<!--index.html-->
+
+<!--Embed the header.html template at this location-->
+{{ template "header.html" .}}
+
+<div class="flex items-center justify-center pt-6 w-full">
+    <div class="w-4/5 p-0">
+        <h2 class="text-red-600 text-2xl py-2 mb-6">{{.subtitle}}</h2>
+    </div>
+</div>
+
+<div id="sub_app_content">
+
+    <div class="flex items-center justify-center pt-6 w-full">       
+
+        <div class="w-4/5 p-0 mb-4 overflow-x-auto relative shadow-md sm:rounded-lg">
+        
+            <div id="edit_form">
+                {{ if eq .active "me"}}
+                
+                {{ template "me_user_form.html" .}}
+
+                {{ else }}
+
+                 {{ template "me_password_form.html" .}}
+
+                {{ end }}
+            
+            </div>  
+        
+        </div>
+        
+    </div>
+        
+</div>
+    
+<!--Embed the footer.html template at this location-->
+{{ template "footer.html" .}}

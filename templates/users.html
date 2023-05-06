@@ -1,0 +1,23 @@
+<!--users.html-->
+<div class="flex items-center justify-center pt-6 w-full">
+
+    <div class="w-4/5 p-0 overflow-x-auto relative shadow-md sm:rounded-lg">
+
+        {{ if eq (index .claims "acctmgt") "super" }}
+        <div class="mb-4 border-2 border-rose-600 rounded-lg">
+            <label for="select" class="block m-2 text-base font-medium text-gray-900 dark:text-white">For Account</label> 
+            <select name="acctname" class="mb-2 bg-gray-50 border border-gray-300 text-gray-900 text-base rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                hx-get="/getusersbyacctname"
+                hx-target="#user_list">
+                {{ range .acctnames }}
+                <option value="{{ . }}" {{ if eq $.acctname . }} selected {{ end }}>{{ . }}</option>
+                {{ end }}
+            </select>
+        </div>
+        {{ end }}
+        
+        {{ template "user_list.html" .}}  
+
+    </div>
+
+</div>

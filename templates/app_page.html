@@ -1,0 +1,59 @@
+<!--index.html-->
+
+<!--Embed the header.html template at this location-->
+{{ template "header.html" .}}
+
+<div id="sub_app_content">
+{{ if eq .active "mservice"}}
+  {{ template "ms_sub_menu.html" . }}
+{{ else }}
+  {{ template "app_sub_menu.html" . }}
+{{ end }}  
+
+  <div class="flex items-center justify-center pt-24 w-full">
+    <div class="w-1/2 bg-white p-6">
+      <h2 class="text-red-600 text-2xl py-2">This is UI for the {{ .title }} Microservice</h2>
+      {{ if eq .active "mservice"}}
+      <p class="text-xl pb-2">
+        The MService microservice provides authentication and authority credential management services.
+      </p>
+      <p class="text-xl">
+        If the logged in user is in the master account and is assigned the admin role, then she has R/W access to:
+          <ul class="list-disc px-8">
+            <li>All accounts</li>
+            <li>All claims and claim names</li>
+            <li>All roles for all accounts</li>
+            <li>All users for all accounts</li>
+          </ul>
+      </p>
+
+      <p class="text-xl pt-2">
+        If the logged in user is not in the master account but is assigned the admin role, then she has R/W access to:
+        <ul class="list-disc px-8">
+          <li>Her account</li>
+          <li>All roles for her account</li>
+          <li>All users for her account</li>
+        </ul>
+      </p>
+
+      <p class="text-xl pt-2">
+        If the logged in user is not assigned the admin role, then she has R/W access to:
+        <ul class="list-disc px-8">
+          <li>Her password</li>
+          <li>Her user record</li>
+        </ul>
+      </p>
+ 
+  {{ else }}
+  
+  <p class="text-xl py-2">
+    This is where we could put a bunch of pages that provided a user interface for the {{ .title }} functions provided by the microservice.
+  </p>
+  {{ end }}
+
+  </div>
+
+</div>
+
+<!--Embed the footer.html template at this location-->
+{{ template "footer.html" .}}

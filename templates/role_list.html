@@ -1,0 +1,76 @@
+<!--user_list.html-->
+<div id="user_list">
+
+    <div class="w-full pt-0 overflow-x-auto relative shadow-md sm:rounded-lg">
+
+        <table class="w-full text-base text-left text-gray-500 dark:text-gray-400">
+            <thead class="text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                <tr class="border-b-2 border-red-400">                    
+                    <td colspan="4" class="py-4 px-6"><h2 class="text-red-600 text-2xl py-2">Account Role List</h3></td>
+                    
+                    <td class="py-4 px-6">
+                    <button type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
+                        hx-get="/msvc/role/new?acctid={{ .working_account_id }}"
+                        hx-trigger="click"
+                        hx-target="#action_content">New Account Role</button>    
+                    </td>
+                </tr>
+                <tr>
+                    <th scope="col" class="py-3 px-6">
+                        ID
+                    </th>
+                    <th scope="col" class="py-3 px-6">
+                        Account ID
+                    </th>
+                    <th scope="col" class="py-3 px-6">
+                       Role Name
+                    </th>
+                    <th scope="col" class="py-3 px-6">
+                        Claims
+                    </th>
+                   <th scope="col" class="py-3 px-6">
+                        Action
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                {{range .roles.AccountRoles }}
+                <tr class="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
+                    <th scope="row" class="py-4 px-6">
+                        {{ .RoleId }}
+                    </th>
+                    <td class="py-4 px-6">
+                        {{ .AccountId }}
+                    </td>
+                    <td class="py-4 px-6">
+                        {{ .RoleName }}
+                    </td>
+                    <td class="py-4 px-6">
+                        {{ range .ClaimValues }} {{ .Claim.ClaimName }}:{{ .ClaimVal}} {{ end }}
+                    </td>
+                    <td class="py-4 px-6">
+                        <button type="button"  class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm p-1.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
+                        hx-get="/msvc/role/{{.RoleId}}/claim_assignment"
+                        hx-trigger="click"
+                        hx-target="#action_content"><img src="/public/images/icons8-key-security-32.png" alt="user roles" width="24" height="24"></button>   
+
+                        <button type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm p-1.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
+                        hx-get="/msvc/role/{{.RoleId}}"
+                        hx-push-url="true"
+                        hx-trigger="click"
+                        hx-target="#action_content"><img src="/public/images/icons8-pencil-24.png" alt="edit"></button>   
+
+                        <button type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm p-1.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
+                        hx-confirm="Are you sure you wish to delete this role?"
+                        hx-post="/delete_role/{{.RoleId}}/{{.Version}}"
+                        hx-trigger="click"
+                        hx-target="#action_content"><img src="/public/images/icons8-delete-trash-24.png" alt="delete"></button>            
+                    </td>
+                </tr>
+                {{end}}
+
+            </tbody>
+        </table>
+    </div>
+
+</div>

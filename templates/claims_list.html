@@ -1,0 +1,78 @@
+<!--claim_list.html-->
+<div id="claims_list">
+
+    <div class="w-full pt-0 overflow-x-auto relative shadow-md sm:rounded-lg">
+        
+        <table class="w-full text-base text-left text-gray-500 dark:text-gray-400">
+            <thead class="text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                <tr class="border-b-2 border-red-400">                    
+                    <td colspan="4" class="py-4 px-6"><h2 class="text-red-600 text-2xl py-2">Claims List</h3></td>
+                    
+                    <td class="py-4 px-6">
+                    <button type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
+                        hx-get="/msvc/claim/new"
+                        hx-trigger="click"
+                        hx-target="#claims_list">New Record</button>    
+                    </td>
+                </tr>
+                <tr>
+                    <th scope="col" class="py-3 px-6">
+                        ID
+                    </th>
+                    <th scope="col" class="py-3 px-6">
+                        Name
+                    </th>
+                    <th scope="col" class="py-3 px-6">
+                        Description
+                    </th>
+                    <th scope="col" class="py-3 px-6">
+                        Modified
+                    </th>
+                   <th scope="col" class="py-3 px-6">
+                        Action
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                {{range .claim_names.Claims }}
+                <tr class="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
+                    <th scope="row" class="py-4 px-6">
+                        {{ .ClaimNameId }}
+                    </th>
+                    <td class="py-4 px-6">
+                        {{ .ClaimName }}
+                    </td>
+                    <td class="py-4 px-6">
+                        {{ .ClaimDescription }}
+                    </td>
+                    <td class="py-4 px-6">
+                        {{ .Modified.TimeFromDateTime.Format "Jan 02, 2006 15:04:05"}}
+                    </td>
+                    <td class="py-4 px-6">
+                        <button type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm p-1.5 mr-2 mb-2 text-center inline-flex items-center mr-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                        hx-get="/msvc/claim/values/{{ .ClaimNameId }}?claim_name={{.ClaimName}}"
+                        hx-push-url="true"
+                        hx-trigger="click"
+                        hx-target="#action_content"><img src="/public/images/icons8-list-view-32.png" alt="edit" width="24" height="24">Values</button>   
+
+                         <button type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm p-1.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
+                        hx-get="/msvc/claim/{{ .ClaimNameId }}"
+                        hx-push-url="true"
+                        hx-trigger="click"
+                        hx-target="#action_content"><img src="/public/images/icons8-pencil-24.png" alt="edit"></button>   
+
+                        <button type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm p-1.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
+                        hx-confirm="Are you sure you wish to delete this record?"
+                        hx-post="/delete_claim/{{ .ClaimNameId }}/{{ .Version }}"
+                        hx-trigger="click"
+                        hx-target="#action_content"><img src="/public/images/icons8-delete-trash-24.png" alt="delete"></button>            
+                    </td>
+                </tr>
+                {{end}}
+
+            </tbody>
+        </table>
+    </div>
+
+</div>
+

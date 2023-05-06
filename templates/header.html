@@ -1,0 +1,22 @@
+<!--header.html-->
+
+<!doctype html>
+<html>
+
+  <head>
+    <!--Use the title variable to set the title of the page-->
+    <title>{{ .title }}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="UTF-8">
+
+    <!--load htmx-->
+    <script src="https://unpkg.com/htmx.org@1.8.4"></script>
+
+    <!--Use tailwind to make the application look nice-->
+    <!-- <link rel="stylesheet" href="/public/dist/css/output.css"> -->
+    <script src="https://cdn.tailwindcss.com"></script>
+  </head>
+
+  <body class="bg-gray-200 text-gray-700 text-xl px-8 py-2">
+    <!--Embed the menu.html template at this location-->
+    {{ template "menu.html" . }}

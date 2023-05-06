@@ -1,0 +1,20 @@
+<!--subapp_partial.html-->
+
+{{ template "ms_sub_menu.html" . }}
+
+<!-- <div id="action_content" class="flex items-center justify-center pt-6 w-full"> -->
+<div id="action_content">
+{{ if eq .sub_active "account"}}
+    {{ template "account.html" .}}   
+{{ else if eq .sub_active "claims"}}
+    {{ template "claims.html" .}} 
+{{ else if eq .sub_active "users"}}
+    {{ template "users.html" .}} 
+{{ else if eq .sub_active "roles"}}
+    {{ template "roles.html" .}} 
+{{ else if eq .sub_active "server"}}
+    {{ template "server.html" .}} 
+{{ else }}
+    {{ .content }}
+{{ end }}
+</div> 

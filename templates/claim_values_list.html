@@ -1,0 +1,70 @@
+<!--claim_list.html-->
+<div class="flex items-center justify-center pt-6 w-full">
+
+    <div class="w-4/5 pt-0 overflow-x-auto relative shadow-md sm:rounded-lg">
+
+        <table class="w-full text-base text-left text-gray-500 dark:text-gray-400">
+            <thead class="text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                <tr class="border-b-2 border-red-400">                    
+                    <td colspan="4" class="py-4 px-6"><h2 class="text-red-600 text-2xl py-2">Claim Values List for Claim: {{.for_claim}}</h3></td>
+                    
+                    <td class="py-4 px-6">
+                    <button type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
+                        hx-get="/msvc/claim/value/new?claim_id={{ .claim_id }}&claim_name={{ .for_claim}}"
+                        hx-trigger="click"
+                        hx-target="#action_content">New Record</button>    
+                    </td>
+                </tr>
+                    <th scope="col" class="py-3 px-6">
+                        ID
+                    </th>
+                    <th scope="col" class="py-3 px-6">
+                        Name
+                    </th>
+                    <th scope="col" class="py-3 px-6">
+                        Description
+                    </th>
+                    <th scope="col" class="py-3 px-6">
+                        Modified
+                    </th>
+                   <th scope="col" class="py-3 px-6">
+                        Action
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                {{range .claim_values.ClaimValue}}
+                <tr class="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
+                    <td scope="row" class="py-4 px-6">
+                        {{ .ClaimValueId }}
+                    </td>
+                    <td class="py-4 px-6">
+                        {{ .ClaimVal }}
+                    </td>
+                    <td class="py-4 px-6">
+                        {{ .ClaimValueDescription }}
+                    </td>
+                    <td class="py-4 px-6">
+                        {{ .Modified.TimeFromDateTime.Format "Jan 02, 2006 15:04:05"}}
+                    </td>
+                    <td class="py-4 px-6">
+                        <button type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
+                        hx-get="/msvc/claim/value/{{ .ClaimValueId }}"
+                        hx-trigger="click"
+                        hx-target="#action_content">Edit</button>   
+
+                        <!-- <button type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
+                        hx-confirm="Are you sure you wish to delete this record?"
+                        hx-delete="/users/{{ .ClaimNameId }}"
+                        hx-trigger="click"
+                        hx-target="#action_content">Delete</button>             -->
+                    </td>
+                </tr>
+                {{end}}
+
+            </tbody>
+        </table>
+    </div>
+    
+</div>
+

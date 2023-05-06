@@ -1,0 +1,38 @@
+<!--index.html-->
+
+<!--Embed the header.html template at this location-->
+{{ template "header.html" .}}
+
+  <h1 class="text-red-600 text-3xl text-center py-12">Gaterace MService Authentication</h1>
+
+  <!-- <div class="grid h-screen place-items-center"> -->
+  <div class="flex items-center justify-center pt-12 w-full">
+    <div class="w-1/2 bg-white p-6">
+      {{ if .auth }}
+        <h2 class="text-red-600 text-2xl py-2">{{ .fullname }} is logged in!</h2>
+        <h3 class="text-red-600 text-xl py-2">Claims data from JWT:</h3>
+
+        {{ range $key, $value := .claims }}
+
+        {{ if eq $key "exp" }}
+        <li class="ml-6"><strong>{{ $key }}</strong>: {{ $.exp }}</li>
+        {{ else if eq $key "iss" }}
+        <li class="ml-6"><strong>{{ $key }}</strong>: {{ $.iss }}</li>
+        {{ else }}
+        <li class="ml-6"><strong>{{ $key }}</strong>: {{ $value }}</li>
+        {{end }}
+        {{ end }}
+      {{ else }}
+        <h2 class="text-red-600 text-2xl py-2">Login failed!</h2>
+
+        <p>Please try again.</p>
+
+      {{ end }}
+    </div>
+  </div>
+
+
+<!--Embed the footer.html template at this location-->
+{{ template "footer.html" .}}
+
+

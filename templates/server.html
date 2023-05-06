@@ -1,0 +1,21 @@
+<!--server.html-->
+           
+
+<div class="flex items-center justify-center pt-24 w-full">
+    <div class="w-1/2 bg-white p-6">
+
+        <h2 class="text-red-600 text-2xl py-2">MService Server Info</h2>
+
+        <p class="text-xl pb-2">
+            Server Version: {{ .version }}  
+        </p>
+        <p class="text-xl pb-2">
+            {{ .uptime }}  
+        </p>
+    
+
+        {{ .content }}  
+
+    </div>
+
+</div>

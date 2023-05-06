@@ -1,0 +1,128 @@
+<!--user_form.html-->
+<div class="flex items-center justify-center pt-6 w-full">
+
+<div class="w-4/5 p-0 mb-4 overflow-x-auto relative shadow-md sm:rounded-lg">
+
+    <div id="edit_form" class="w-full pt-0 overflow-x-auto relative shadow-md sm:rounded-lg ">
+
+        <div id="toaster" class="mb-4 flex items-center w-full p-2 text-gray-900 bg-white rounded-lg shadow dark:text-gray-400 dark:bg-gray-800" role="alert">
+            {{ if .success}}
+            <div class="inline-flex items-center justify-center flex-shrink-0 w-8 h-8 text-green-500 bg-green-100 rounded-lg dark:bg-green-800 dark:text-green-200">
+                <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
+                <span class="sr-only">Check icon</span>
+            </div>
+            <div class="ml-3 text-sm font-normal">Role updated successfully.</div>
+            {{ else if .failure }}
+            <div class="inline-flex items-center justify-center flex-shrink-0 w-8 h-8 text-red-500 bg-red-100 rounded-lg dark:bg-red-800 dark:text-red-200">
+                <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+                <span class="sr-only">Error icon</span>
+            </div>
+            <div class="ml-3 text-sm font-normal">{{if .isCreate }}Create Role failed.{{ else }}Role update failed.{{ end }}</div>    
+            {{ else }}
+            <div class="inline-flex items-center justify-center flex-shrink-0 w-8 h-8 text-orange-500 bg-orange-100 rounded-lg dark:bg-orange-700 dark:text-orange-200">
+                <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M8.44,7.25C8.348,7.342,8.277,7.447,8.215,7.557L8.174,7.516L8.149,7.69   C8.049,7.925,8.014,8.183,8.042,8.442l-0.399,2.796l2.797-0.399c0.259,0.028,0.517-0.007,0.752-0.107l0.174-0.024l-0.041-0.041   c0.109-0.062,0.215-0.133,0.307-0.225l5.053-5.053l-3.191-3.191L8.44,7.25z" fill="#231F20"/><path d="M18.183,1.568l-0.87-0.87c-0.641-0.641-1.637-0.684-2.225-0.097l-0.797,0.797l3.191,3.191l0.797-0.798   C18.867,3.205,18.824,2.209,18.183,1.568z" fill="#231F20"/><path d="M15,9.696V17H2V2h8.953l1.523-1.42c0.162-0.161,0.353-0.221,0.555-0.293   c0.043-0.119,0.104-0.18,0.176-0.287H0v19h17V7.928L15,9.696z" clip-rule="evenodd"></path></svg>
+                <span class="sr-only">Edit icon</span>
+            </div>
+            <div class="ml-3 text-sm font-normal">{{if .isCreate }}Enter new Role data.{{ else }}Make changes to this Role.{{ end }}</div>      
+            {{ end }}
+        </div>
+        {{ if not .isCreate }}
+        <form  
+            hx-post="/updt_role"
+            hx-trigger="submit"
+            hx-target="#action_content">
+            
+            <div class="grid grid-cols-2 gap-2">  
+                <div class="mb-2">
+                    <label for="ID" class="block mb-2 text-base font-medium text-gray-900 dark:text-white">Role ID</label> 
+                    <input type="text" name="RoleId" id="ID" value="{{.role.AccountRole.RoleId}}" class="bg-gray-100 border border-gray-300 text-gray-900 text-base rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 cursor-not-allowed dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500" readonly>
+                </div>
+                <input type="hidden" name="Version" id="version" value="{{.role.AccountRole.Version}}">
+                <input type="hidden" name="AccountId" id="version" value="{{.role.AccountRole.AccountId}}">
+                <div class="mb-6">
+                    <label for="full_name" class="block mb-2 text-base font-medium text-gray-900 dark:text-white">Role Name</label>
+                    <input type="text" name="RoleName" id="long_name" value="{{ .role.AccountRole.RoleName }}" class="bg-gray-50 border border-gray-300 text-gray-900 text-base rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" 
+                        placeholder="Role Name" required>
+                </div> 
+            </div> 
+
+            
+
+            <div class="container py-3 mx-0 min-w-full flex flex-col items-center">
+                <div>
+                    <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-base w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                        {{ if or (eq (index .claims "acctmgt") "super") (eq (index .claims "acctmgt") "admin") }} 
+                            >Save
+                        {{ else }}                        
+                        disabled="true">Read Only
+                        {{ end }}
+                        </button>
+                    {{ if and  (not .isCreate) (eq (index .claims "acctmgt") "admin") }}
+                    <button class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-base w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                        hx-post="/delete_acct/{{.acct.Account.AccountId}}/{{.acct.Account.Version}}"
+                        hx-target="#action_content"
+                        hx-confirm="Are you sure you want to DELETE account: &nbsp; '{{.acct.Account.AccountName}}'?"
+                        >
+                        Delete</button>
+                    {{ end }}    
+                </div>
+            </div>
+
+        </form>
+
+
+            <div class="mb-2">
+                <label class="block mb-2 text-base font-medium text-gray-900 dark:text-white">Claim Values [ Claims ]</label>
+                <div class="bg-gray-50 border border-gray-300 text-gray-900 text-base rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                {{range .role.AccountRole.ClaimValues }}
+                    <p>{{.ClaimVal}} ({{.ClaimValueDescription}}):
+                        [ {{.Claim.ClaimName}}: {{.ClaimVal}} ] 
+                    </p>
+                {{ end }}
+                </div>
+            </div> 
+        {{ else }}
+
+        <form  
+            hx-post="/create_role"
+            hx-trigger="submit"
+            hx-target="#action_content">
+
+
+
+            <div class="grid grid-cols-2 gap-2">  
+                <div class="mb-2">
+                    <label for="ID" class="block mb-2 text-base font-medium text-gray-900 dark:text-white">Account ID</label> 
+                    <input type="text" name="AccountId" id="ID" value="{{.working_account_id}}" class="bg-gray-100 border border-gray-300 text-gray-900 text-base rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 cursor-not-allowed dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500" readonly>
+                </div>
+
+                <div class="mb-6">
+                    <label for="full_name" class="block mb-2 text-base font-medium text-gray-900 dark:text-white">Role Name</label>
+                    <input type="text" name="RoleName" id="long_name" value="{{ .role_name }}" class="bg-gray-50 border border-gray-300 text-gray-900 text-base rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" 
+                        placeholder="Role Name" required>
+                </div> 
+            </div> 
+
+            <div class="container py-3 mx-0 min-w-full flex flex-col items-center">
+                <div>
+                    <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-base w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                        Save</button> 
+                    {{ if and  (not .isCreate) (eq (index .claims "acctmgt") "admin") }}
+                    <button class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-base w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                        hx-post="/delete_acct/{{.acct.Account.AccountId}}/{{.acct.Account.Version}}"
+                        hx-target="#action_content"
+                        hx-confirm="Are you sure you want to DELETE account: &nbsp; '{{.acct.Account.AccountName}}'?"
+                        >
+                        Delete</button>
+                    {{ end }}    
+                </div>
+            </div>
+
+        </form>  
+
+        {{ end }}
+    </div>  
+
+</div>
+
+</div>

@@ -1,0 +1,28 @@
+<!--index.html-->
+
+<!--Embed the header.html template at this location-->
+{{ template "header.html" .}}
+
+  <h1 class="text-red-600 text-3xl text-center py-12">MService Admin UI</h1>
+
+  <!-- <div class="grid h-screen place-items-center"> -->
+  <div class="flex items-center justify-center pt-8 w-full">
+    <div class="w-1/2 bg-white p-6">
+      <h2 class="text-red-600 text-2xl py-2">Gaterace Microservices Suite</h2>
+
+      <p class="text-xl py-2">MService is a microservice for authentication and authorization in 
+        support of this and other microservices. It is written in the language Go, and uses gRPC 
+        to define and implement it's application programming interface (API). A successful invocation 
+        of the login api returns a JSON Web Token (JWT) that can be used with this and other 
+        microservices to gain access to methods in those microservices.
+      </p>
+      <p class="text-xl py-2">If the logged-in user has sufficient admin-level authority, she will be 
+        able to manage Account, Claims, Users and Roles data using this application.
+      </p>
+      
+    </div>
+  </div>
+
+
+<!--Embed the footer.html template at this location-->
+{{ template "footer.html" .}}
